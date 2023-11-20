@@ -1,5 +1,6 @@
 package group4.LastBuildWeek.exceptions;
 
+
 import java.time.LocalDate;
 
 public class NotFoundException extends RuntimeException{
