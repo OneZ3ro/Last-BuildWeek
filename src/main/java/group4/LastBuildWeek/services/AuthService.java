@@ -5,8 +5,8 @@ import group4.LastBuildWeek.enums.Role;
 import group4.LastBuildWeek.exceptions.BadRequestException;
 import group4.LastBuildWeek.exceptions.NotFoundException;
 import group4.LastBuildWeek.exceptions.UnauthorizedException;
-import group4.LastBuildWeek.payloads.UtenteLoginDTO;
-import group4.LastBuildWeek.payloads.UtenteRegistrationDTO;
+import group4.LastBuildWeek.payloads.entities.UtenteLoginDTO;
+import group4.LastBuildWeek.payloads.entities.UtenteRegistrationDTO;
 import group4.LastBuildWeek.repository.UtenteRepository;
 import group4.LastBuildWeek.security.JWTTools;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.util.Collections;
 
 @Service
 public class AuthService {
