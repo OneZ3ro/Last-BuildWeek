@@ -9,6 +9,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.util.AntPathMatcher;
@@ -16,7 +18,10 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 
 import java.io.IOException;
-    @Component
+import java.util.List;
+import java.util.stream.Collectors;
+
+@Component
     public class JWTAuthFilter extends OncePerRequestFilter {
         @Autowired
         private JWTTools jwtTools;
@@ -43,7 +48,10 @@ import java.io.IOException;
                 // 3.2 Segnalo a Spring Security che l'utente ha il permesso di procedere
                 // Se non facciamo questa procedura, ci verrà comunque tornato 403
                 System.out.println(currentUser);
-                Authentication authentication = new UsernamePasswordAuthenticationToken(currentUser, null, currentUser.getAuthorities());
+                List<GrantedAuthority> authorities = currentUser.getRole().stream()
+                        .map(role -> new SimpleGrantedAuthority("ROLE_" + role))
+                        .collect(Collectors.toList());
+                Authentication authentication = new UsernamePasswordAuthenticationToken(currentUser, null, authorities);
                 SecurityContextHolder.getContext().setAuthentication(authentication);
 
                 // 3.3 Procediamo (vuol dire andare al prossimo blocco della filter chain)
