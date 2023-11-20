@@ -3,9 +3,10 @@ package group4.LastBuildWeek.services;
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 import group4.LastBuildWeek.entities.Cliente;
+import group4.LastBuildWeek.entities.Indirizzi;
 import group4.LastBuildWeek.exceptions.NotFoundException;
 import group4.LastBuildWeek.payloads.entities.ClienteDTO;
-import group4.LastBuildWeek.repositories.ClienteRepository;
+import group4.LastBuildWeek.repository.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -36,19 +37,19 @@ public class ClienteService {
     }
 
     public Cliente findByFatturatoAnnuale(double fattura) throws NotFoundException {
-        return clienteRepository.findByFatturatoAnnuale(fattura).orElseThrow(() -> new NotFoundException(fattura)); //---------------------------------- DA FINIRE ----------------------------------
+        return clienteRepository.findByFatturaAnnuale(fattura).orElseThrow(() -> new NotFoundException(fattura)); //---------------------------------- DA FINIRE ----------------------------------
     }
 
     public List<Cliente> findByDataDiInserimento(LocalDate dataInserimento) throws NotFoundException {
-        return clienteRepository.findByDataDiInserimento(dataInserimento).orElseThrow(() -> new NotFoundException(dataInserimento));  //---------------------------------- DA FINIRE ----------------------------------
+        return clienteRepository.findByDataInserimento(dataInserimento).orElseThrow(() -> new NotFoundException(dataInserimento));  //---------------------------------- DA FINIRE ----------------------------------
     }
 
     public List<Cliente> findByDataDiUltimoContatto(LocalDate dataUltimoContatto) throws NotFoundException {
-        return clienteRepository.findByDataDiUltimoContatto(dataUltimoContatto).orElseThrow(() -> new NotFoundException(dataUltimoContatto));
+        return clienteRepository.findByDataUltimoContatto(dataUltimoContatto).orElseThrow(() -> new NotFoundException(dataUltimoContatto));
     }
 
-    public Cliente findByProvinciaSedeLegale(String provinciaSedeLegale) throws NotFoundException {
-        return clienteRepository.findByProvinciaSedeLegale(provinciaSedeLegale).orElseThrow(() -> new NotFoundException(provinciaSedeLegale));
+    public Cliente findByProvinciaSedeLegale(Indirizzi provinciaSedeLegale) throws NotFoundException {
+        return clienteRepository.findBySedeLegale(provinciaSedeLegale).orElseThrow(() -> new NotFoundException(String.valueOf(provinciaSedeLegale)));
     }
 
     public Cliente saveCliente(ClienteDTO body) throws IOException {

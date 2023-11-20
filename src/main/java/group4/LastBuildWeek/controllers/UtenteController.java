@@ -2,6 +2,7 @@ package group4.LastBuildWeek.controllers;
 
 import group4.LastBuildWeek.entities.Utente;
 import group4.LastBuildWeek.exceptions.NotFoundException;
+import group4.LastBuildWeek.services.AuthService;
 import group4.LastBuildWeek.services.UtenteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -20,6 +21,9 @@ public class UtenteController {
     @Autowired
     private UtenteService utenteService;
 
+    @Autowired
+    private AuthService authService;
+
 
     @GetMapping("")
     @PreAuthorize("hasAnyAuthority('ADMIN', 'USER')")
@@ -34,10 +38,7 @@ public class UtenteController {
         return currentUser;
     };
 
-    @PutMapping("/me")
-    public UserDetails getProfile(@AuthenticationPrincipal Utente currentUser, @RequestBody Utente body){
-        return utenteService.findByIdAndUpdate(currentUser.getId(), body);
-    }
+
 
     @DeleteMapping("/me")
     @ResponseStatus(HttpStatus.NO_CONTENT) // <-- 204 NO CONTENT
@@ -49,14 +50,7 @@ public class UtenteController {
         return utenteService.findById(id);
     }
 
-    @PutMapping("/{id}")
-    @PreAuthorize("hasAuthority('ADMIN')")
-    public Utente findByIdAndUpdate(@PathVariable int id, @RequestBody Utente body) throws NotFoundException {
 
-
-
-        return utenteService.findByIdAndUpdate(id, body);
-    }
     @DeleteMapping("/{id}")
     @PreAuthorize("hasAuthority('ADMIN')")
     @ResponseStatus(HttpStatus.NO_CONTENT) // <-- 204 NO CONTENT
