@@ -10,6 +10,9 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 @RestController
 @RequestMapping("/utente")
@@ -49,6 +52,9 @@ public class UtenteController {
     @PutMapping("/{id}")
     @PreAuthorize("hasAuthority('ADMIN')")
     public Utente findByIdAndUpdate(@PathVariable int id, @RequestBody Utente body) throws NotFoundException {
+
+
+
         return utenteService.findByIdAndUpdate(id, body);
     }
     @DeleteMapping("/{id}")
@@ -56,6 +62,14 @@ public class UtenteController {
     @ResponseStatus(HttpStatus.NO_CONTENT) // <-- 204 NO CONTENT
     public void findByIdAndDelete(@PathVariable int id) throws NotFoundException {
         utenteService.findByIdAndDelete(id);
+    }
+
+    @PostMapping("/upload/{id}")
+    @PreAuthorize("hasAnyAuthority('USER','ADMIN')")
+    public String uploadAvatar(@PathVariable long id, @RequestParam("immagine_profilo") MultipartFile body) throws IOException {
+        System.out.println(body.getSize());
+        System.out.println(body.getContentType());
+        return utenteService.uploadAvatar(id,body);
     }
 
 }

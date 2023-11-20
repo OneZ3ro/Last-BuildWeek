@@ -1,17 +1,33 @@
 package group4.LastBuildWeek.services;
 
+import com.cloudinary.Cloudinary;
 import group4.LastBuildWeek.entities.Utente;
 import group4.LastBuildWeek.exceptions.NotFoundException;
 import group4.LastBuildWeek.repository.UtenteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import com.cloudinary.utils.ObjectUtils;
+
+
+import java.io.IOException;
+import java.util.Map;
 
 @Service
 public class UtenteService {
     @Autowired
     private UtenteRepository utenteRepository;
+    @Autowired
+    private PasswordEncoder bcrypt;
 
+    @Autowired
+    private Cloudinary cloudinary;
 
     // @Autowired
     //private EmailSender emailSender;
@@ -42,7 +58,11 @@ public class UtenteService {
 
     public Utente findByIdAndUpdate(long id, Utente body) throws NotFoundException {
         Utente found = this.findById(id);
-
+        found.setCognome(body.getCognome());
+        found.setNome(body.getNome());
+        found.setUsername(body.getUsername());
+        found.setEmail(body.getEmail());
+        found.setPassword(bcrypt.encode(body.getPassword()));
         return utenteRepository.save(found);
     }
 
@@ -55,4 +75,20 @@ public class UtenteService {
                 .orElseThrow(() -> new Exception("Utente con email "+ email + " non trovato"));
     }
 
+    public String uploadAvatar(long id, MultipartFile file) throws IOException {
+        try {
+            Map<String, Object> uploadResult = cloudinary.uploader().upload(file.getBytes(), ObjectUtils.emptyMap());
+            String imageUrl = (String) uploadResult.get("url");
+
+            Utente utente = utenteRepository.findById(id).orElse(null);
+            if (utente != null) {
+                utente.setAvatar(imageUrl);
+                utenteRepository.save(utente);
+            }
+
+            return imageUrl;
+        } catch (IOException e) {
+            throw new RuntimeException("Impossibile caricare l'immagine", e);
+        }
+    }
 }

@@ -5,6 +5,7 @@ import group4.LastBuildWeek.enums.Role;
 import group4.LastBuildWeek.exceptions.BadRequestException;
 import group4.LastBuildWeek.exceptions.UnauthorizedException;
 import group4.LastBuildWeek.payloads.UtenteLoginDTO;
+import group4.LastBuildWeek.payloads.UtenteRegistrationDTO;
 import group4.LastBuildWeek.repository.UtenteRepository;
 import group4.LastBuildWeek.security.JWTTools;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,17 +41,21 @@ public class AuthService {
         }
     }
 
-    public Utente registerUser(Utente body) throws IOException {
+    public UtenteRegistrationDTO registerUser(UtenteRegistrationDTO body) throws IOException {
 
         // verifico se l'email è già utilizzata
-        dipendenteRepository.findByEmail(body.getEmail()).ifPresent( user -> {
+        dipendenteRepository.findByEmail(body.email()).ifPresent( user -> {
             throw new BadRequestException("L'email " + user.getEmail() + " è già utilizzata!");
         });
         Utente newUser = new Utente();
-        newUser.setPassword(bcrypt.encode(body.getPassword())); // $2a$11$wQyZ17wrGu8AZeb2GCTcR.QOotbcVd9JwQnnCeqONWWP3wRi60tAO
-        newUser.setEmail(body.getEmail());
+        newUser.setPassword(bcrypt.encode(body.password())); // $2a$11$wQyZ17wrGu8AZeb2GCTcR.QOotbcVd9JwQnnCeqONWWP3wRi60tAO
+        newUser.setEmail(body.email());
+        newUser.setUsername(body.username());
+        newUser.setNome(body.nome());
+        newUser.setCognome(body.cognome());
         newUser.setRole(Role.USER);
-        return dipendenteRepository.save(newUser);
+        dipendenteRepository.save(newUser);
+        return body;
     }
 
 }

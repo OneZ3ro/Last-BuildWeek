@@ -5,6 +5,7 @@ import group4.LastBuildWeek.entities.Utente;
 import group4.LastBuildWeek.exceptions.BadRequestException;
 import group4.LastBuildWeek.payloads.UtenteLoginDTO;
 import group4.LastBuildWeek.payloads.UtenteLoginSuccessDTO;
+import group4.LastBuildWeek.payloads.UtenteRegistrationDTO;
 import group4.LastBuildWeek.services.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,7 +29,7 @@ public class AuthController {
 
     @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED) // <-- 201
-    public Utente saveUser(@RequestBody @Validated Utente body, BindingResult validation){
+    public UtenteRegistrationDTO saveUser(@RequestBody @Validated UtenteRegistrationDTO body, BindingResult validation){
         if(validation.hasErrors()){
             throw new BadRequestException(validation.getAllErrors());
         } else {
