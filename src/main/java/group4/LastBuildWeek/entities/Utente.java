@@ -11,8 +11,10 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @NoArgsConstructor
@@ -40,9 +42,9 @@ public class Utente implements UserDetails {
     private String avatar;
     @Column(name="role")
     @Enumerated(EnumType.STRING)
-    private Role role;
+    private List<Role> role;
 
-    public Utente(String username, String email, String password, String nome, String cognome, Role role) {
+    public Utente(String username, String email, String password, String nome, String cognome, List<Role> role) {
         this.username = username;
         this.email = email;
         this.password = password;
@@ -53,7 +55,14 @@ public class Utente implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(this.role.name()));
+        List<GrantedAuthority> authorities = new ArrayList<>();
+        if (this.role != null) {
+            authorities.addAll(this.role.stream()
+                    .map(role -> new SimpleGrantedAuthority(role.name()))
+                    .toList());
+        }
+
+        return authorities;
     }
 
     @Override

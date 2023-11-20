@@ -13,6 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.Collections;
 
 @Service
 public class AuthService {
@@ -53,7 +54,7 @@ public class AuthService {
         newUser.setUsername(body.username());
         newUser.setNome(body.nome());
         newUser.setCognome(body.cognome());
-        newUser.setRole(Role.USER);
+        newUser.setRole(Collections.singletonList(Role.USER));
         dipendenteRepository.save(newUser);
         return body;
     }
