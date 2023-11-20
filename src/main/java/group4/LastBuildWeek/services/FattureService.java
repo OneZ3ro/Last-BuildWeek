@@ -1,8 +1,9 @@
 package group4.LastBuildWeek.services;
 
 import group4.LastBuildWeek.entities.Fattura;
+import group4.LastBuildWeek.exceptions.BadRequestException;
 import group4.LastBuildWeek.exceptions.NotFoundException;
-import group4.LastBuildWeek.payloads.NuovaFatturaDTO;
+import group4.LastBuildWeek.payloads.entities.NuovaFatturaDTO;
 import group4.LastBuildWeek.repository.FattureRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -28,6 +29,7 @@ public class FattureService {
         });
 
         Fattura fatturaNuova = new Fattura();
+        fatturaNuova.setDataFattura(LocalDate.now());
         fatturaNuova.setImportoFattura(body.importoFattura());
         fatturaNuova.setNumeroFattura(body.numeroFattura());
         fatturaNuova.setCliente(body.cliente());

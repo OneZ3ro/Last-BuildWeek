@@ -11,7 +11,6 @@ import java.util.Date;
 
 @Entity
 @Table(name = "fatture")
-@NoArgsConstructor
 @Getter
 @ToString
 public class Fattura {
@@ -27,21 +26,15 @@ public class Fattura {
     @Enumerated(EnumType.STRING)
     private StatoFattura statoFattura;
 
-    public Fattura(Date dataFattura, String numeroFattura, double importoFattura, Cliente cliente, StatoFattura statoFattura) {
+
+    public void setDataFattura(LocalDate dataFattura) {
         this.dataFattura = dataFattura;
-        this.numeroFattura = numeroFattura;
-        this.importoFattura = importoFattura;
-        this.cliente = cliente;
-        this.statoFattura = statoFattura;
     }
 
     public void setNumeroFattura(String numeroFattura) {
         this.numeroFattura = numeroFattura;
     }
 
-    public void setDataFattura(Date dataFattura) {
-        this.dataFattura = dataFattura;
-    }
 
     public void setImportoFattura(double importoFattura) {
         this.importoFattura = importoFattura;

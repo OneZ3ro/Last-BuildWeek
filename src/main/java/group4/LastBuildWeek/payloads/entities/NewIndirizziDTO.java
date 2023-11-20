@@ -7,5 +7,8 @@ public record NewIndirizziDTO(@NotEmpty(message = "La via è un campo obbligator
                               @NotEmpty(message = "Il civico è un campo obbligatorio!")
                               String civico,
                               @NotEmpty(message = "La località è un campo obbligatorio!")
-                              String località) {
-}
+                              String località,
+                              @NotEmpty(message = "Il cap è un campo obbligatorio!")
+                              String cap,
+                              @NotEmpty(message = "Il comune è un campo obbligatorio!")
+                              String comune){}

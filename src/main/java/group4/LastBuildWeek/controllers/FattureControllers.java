@@ -1,7 +1,8 @@
 package group4.LastBuildWeek.controllers;
 
 import group4.LastBuildWeek.entities.Fattura;
-import group4.LastBuildWeek.payloads.NuovaFatturaDTO;
+import group4.LastBuildWeek.exceptions.BadRequestException;
+import group4.LastBuildWeek.payloads.entities.NuovaFatturaDTO;
 import group4.LastBuildWeek.services.FattureService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

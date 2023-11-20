@@ -24,6 +24,8 @@ public class IndirizziService {
         newEvent.setVia(eventDTO.via());
         newEvent.setCivico(eventDTO.civico());
         newEvent.setLocalità(eventDTO.località());
+        newEvent.setCap(eventDTO.cap());
+        newEvent.setComune(eventDTO.comune());
 
 
         return indirizziRepository.save(newEvent);
@@ -45,6 +47,8 @@ public class IndirizziService {
         found.setVia(body.via());
         found.setCivico(body.civico());
         found.setLocalità(body.località());
+        found.setCap(body.cap());
+        found.setComune(body.comune());
         return indirizziRepository.save(found);
     }
 

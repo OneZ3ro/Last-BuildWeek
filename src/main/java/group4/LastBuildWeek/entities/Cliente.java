@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "clienti")
@@ -31,8 +32,12 @@ public class Cliente {
     private String logoAziendale;
     @Enumerated(EnumType.STRING)
     private TipoCliente tipoCliente;
-//    @OneToOne
-//    private Indirizzo sedeLegale;
-//    @OneToOne
-//    private Indirizzo sedeOperativa;
+    @OneToMany(mappedBy = "cliente")
+    private List<Fattura> listaFatture;
+    @OneToOne
+    @JoinColumn(name = "indirizzo_sede_legale_id")
+    private Indirizzi sedeLegale;
+    @OneToOne
+    @JoinColumn(name = "indirizzo_sede_operativa_id")
+    private Indirizzi sedeOperativa;
 }
