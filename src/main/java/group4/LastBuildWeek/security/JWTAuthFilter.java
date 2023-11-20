@@ -43,21 +43,27 @@ import java.util.stream.Collectors;
 
                 // 3. Se è tutto OK
                 // 3.1 Cerco l'utente nel database tramite id (l'id sta nel payload del token, quindi devo estrarlo da lì)
-                String id = jwtTools.extractIdFromToken(token);
-                Utente currentUser = usersService.findById(Integer.parseInt(id));
+//                String id = jwtTools.extractIdFromToken(token);
+//                Utente currentUser = usersService.findById(Integer.parseInt(id));
                 // 3.2 Segnalo a Spring Security che l'utente ha il permesso di procedere
                 // Se non facciamo questa procedura, ci verrà comunque tornato 403
-                System.out.println(currentUser);
-                List<GrantedAuthority> authorities = currentUser.getRole().stream()
-                        .map(role -> new SimpleGrantedAuthority("ROLE_" + role))
-                        .collect(Collectors.toList());
-                Authentication authentication = new UsernamePasswordAuthenticationToken(currentUser, null, authorities);
-                SecurityContextHolder.getContext().setAuthentication(authentication);
+//                System.out.println(currentUser);
+
+//                Authentication authentication = new UsernamePasswordAuthenticationToken(currentUser, null, authorities);
+//                SecurityContextHolder.getContext().setAuthentication(authentication);
 
                 // 3.3 Procediamo (vuol dire andare al prossimo blocco della filter chain)
-                filterChain.doFilter(request, response);
+//                filterChain.doFilter(request, response);
 
                 // 4. Se non è OK -> 401
+
+                String id = jwtTools.extractIdFromToken(token);
+                Utente currentUtente = usersService.findById(Long.parseLong(id));
+
+                Authentication authentication = new UsernamePasswordAuthenticationToken(currentUtente, null, currentUtente.getAuthorities());
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+
+                filterChain.doFilter(request, response);
             }
 
         }

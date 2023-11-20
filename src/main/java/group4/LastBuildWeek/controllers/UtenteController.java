@@ -21,12 +21,7 @@ public class UtenteController {
     @Autowired
     private UtenteService utenteService;
 
-    @Autowired
-    private AuthService authService;
-
-
     @GetMapping("")
-    @PreAuthorize("hasAnyAuthority(T(java.util.Arrays).stream(authorityList.toArray()).map(Object::toString).toArray(String[]))")
     public Page<Utente> getUser(@RequestParam(defaultValue = "0") int page,
                                 @RequestParam(defaultValue = "10") int size,
                                 @RequestParam(defaultValue = "id") String orderBy){
@@ -46,6 +41,7 @@ public class UtenteController {
         utenteService.findByIdAndDelete(currentUser.getId());
     };
     @GetMapping(value = "/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public Utente findById(@PathVariable int id)  {
         return utenteService.findById(id);
     }
@@ -59,7 +55,7 @@ public class UtenteController {
     }
 
     @PostMapping("/upload/{id}")
-    @PreAuthorize("hasAnyAuthority('USER','ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String uploadAvatar(@PathVariable long id, @RequestParam("immagine_profilo") MultipartFile body) throws IOException {
         System.out.println(body.getSize());
         System.out.println(body.getContentType());

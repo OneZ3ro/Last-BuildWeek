@@ -44,21 +44,22 @@ public class AuthService {
         }
     }
 
-    public UtenteRegistrationDTO registerUser(UtenteRegistrationDTO body) throws IOException {
+    public Utente registerUser(UtenteRegistrationDTO body) throws IOException {
 
         // verifico se l'email è già utilizzata
         dipendenteRepository.findByEmail(body.email()).ifPresent( user -> {
             throw new BadRequestException("L'email " + user.getEmail() + " è già utilizzata!");
         });
         Utente newUser = new Utente();
-        newUser.setPassword(bcrypt.encode(body.password())); // $2a$11$wQyZ17wrGu8AZeb2GCTcR.QOotbcVd9JwQnnCeqONWWP3wRi60tAO
+        newUser.setPassword(bcrypt.encode(body.password()));
         newUser.setEmail(body.email());
         newUser.setUsername(body.username());
         newUser.setNome(body.nome());
         newUser.setCognome(body.cognome());
-        newUser.setRole(Collections.singletonList(Role.USER));
+//        newUser.setRole(Collections.singletonList(Role.USER));
+        newUser.setRole(Role.USER);
         dipendenteRepository.save(newUser);
-        return body;
+        return newUser;
     }
     public Utente findByIdAndUpdate(long id, Utente body) throws NotFoundException {
         Utente found = dipendenteRepository.findById(id).get();
@@ -69,6 +70,4 @@ public class AuthService {
         //found.setPassword(bcrypt.encode(body.getPassword()));
         return dipendenteRepository.save(found);
     }
-
-
 }

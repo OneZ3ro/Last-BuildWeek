@@ -17,12 +17,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
+@Table(name="utenti")
 @Getter
 @Setter
-@Table(name="utenti")
-@JsonIgnoreProperties({ "authorities", "enabled", "credentialsNonExpired", "accountNonExpired", "accountNonLocked"})
+@JsonIgnoreProperties({"password", "authorities", "enabled", "credentialsNonExpired", "accountNonExpired", "accountNonLocked"})
 public class Utente implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,27 +40,22 @@ public class Utente implements UserDetails {
     private String avatar;
     @Column(name="role")
     @Enumerated(EnumType.STRING)
-    private List<Role> role;
+    private Role role;
 
-    public Utente(String username, String email, String password, String nome, String cognome, List<Role> role) {
-        this.username = username;
-        this.email = email;
-        this.password = password;
-        this.nome = nome;
-        this.cognome = cognome;
-        this.role = role;
-    }
-
+//    @Override
+//    public Collection<? extends GrantedAuthority> getAuthorities() {
+//        List<GrantedAuthority> authorities = new ArrayList<>();
+//        if (this.role != null) {
+//            authorities.addAll(this.role.stream()
+//                    .map(role -> new SimpleGrantedAuthority(role.name()))
+//                    .toList());
+//        }
+//
+//        return authorities;
+//    }
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        List<GrantedAuthority> authorities = new ArrayList<>();
-        if (this.role != null) {
-            authorities.addAll(this.role.stream()
-                    .map(role -> new SimpleGrantedAuthority(role.name()))
-                    .toList());
-        }
-
-        return authorities;
+        return List.of(new SimpleGrantedAuthority(this.role.name()));
     }
 
     @Override

@@ -35,7 +35,6 @@ public class SecurityConfig {
         http.addFilterBefore(exceptionsHandlerFilter, JWTAuthFilter.class);
 
         // Aggiungo/rimuovo protezione sui singoli endpoint in maniera che venga/non venga richiesta l'autenticazione per accedervi
-        http.authorizeHttpRequests(request -> request.requestMatchers("/auth/**").permitAll());
         return http.build();
     }
     @Bean
