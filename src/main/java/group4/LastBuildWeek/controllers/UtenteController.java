@@ -26,7 +26,7 @@ public class UtenteController {
 
 
     @GetMapping("")
-    @PreAuthorize("hasAnyAuthority('ADMIN', 'USER')")
+    @PreAuthorize("hasAnyAuthority(T(java.util.Arrays).stream(authorityList.toArray()).map(Object::toString).toArray(String[]))")
     public Page<Utente> getUser(@RequestParam(defaultValue = "0") int page,
                                 @RequestParam(defaultValue = "10") int size,
                                 @RequestParam(defaultValue = "id") String orderBy){
