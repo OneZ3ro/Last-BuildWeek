@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -18,7 +19,7 @@ public class Fattura {
     @GeneratedValue
     private long id;
     private String numeroFattura;
-    private Date dataFattura;
+    private LocalDate dataFattura;
     private double importoFattura;
     @ManyToOne
     @JoinColumn(name = "id_cliente")
@@ -26,11 +27,16 @@ public class Fattura {
     @Enumerated(EnumType.STRING)
     private StatoFattura statoFattura;
 
-    public Fattura(Date dataFattura, double importoFattura, Cliente cliente, StatoFattura statoFattura) {
+    public Fattura(Date dataFattura, String numeroFattura, double importoFattura, Cliente cliente, StatoFattura statoFattura) {
         this.dataFattura = dataFattura;
+        this.numeroFattura = numeroFattura;
         this.importoFattura = importoFattura;
         this.cliente = cliente;
         this.statoFattura = statoFattura;
+    }
+
+    public void setNumeroFattura(String numeroFattura) {
+        this.numeroFattura = numeroFattura;
     }
 
     public void setDataFattura(Date dataFattura) {
