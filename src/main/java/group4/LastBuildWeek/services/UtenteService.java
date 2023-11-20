@@ -23,8 +23,6 @@ import java.util.Map;
 public class UtenteService {
     @Autowired
     private UtenteRepository utenteRepository;
-    @Autowired
-    private PasswordEncoder bcrypt;
 
     @Autowired
     private Cloudinary cloudinary;
@@ -56,15 +54,6 @@ public class UtenteService {
         utenteRepository.delete(found);
     }
 
-    public Utente findByIdAndUpdate(long id, Utente body) throws NotFoundException {
-        Utente found = this.findById(id);
-        found.setCognome(body.getCognome());
-        found.setNome(body.getNome());
-        found.setUsername(body.getUsername());
-        found.setEmail(body.getEmail());
-        found.setPassword(bcrypt.encode(body.getPassword()));
-        return utenteRepository.save(found);
-    }
 
     public Utente getRandomUtente() throws NotFoundException {
         return utenteRepository.findRandomUtente();

@@ -3,12 +3,16 @@ package group4.LastBuildWeek.controllers;
 
 import group4.LastBuildWeek.entities.Utente;
 import group4.LastBuildWeek.exceptions.BadRequestException;
+import group4.LastBuildWeek.exceptions.NotFoundException;
 import group4.LastBuildWeek.payloads.UtenteLoginDTO;
 import group4.LastBuildWeek.payloads.UtenteLoginSuccessDTO;
 import group4.LastBuildWeek.payloads.UtenteRegistrationDTO;
 import group4.LastBuildWeek.services.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -40,4 +44,14 @@ public class AuthController {
             }
         }
     }
+    @PutMapping("/me")
+    public UserDetails getProfile(@AuthenticationPrincipal Utente currentUser, @RequestBody Utente body){
+        return authService.findByIdAndUpdate(currentUser.getId(), body);
+    }
+    @PutMapping("/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public Utente findByIdAndUpdate(@PathVariable int id, @RequestBody Utente body) throws NotFoundException {
+        return authService.findByIdAndUpdate(id, body);
+    }
+
 }

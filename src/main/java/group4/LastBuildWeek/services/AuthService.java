@@ -3,6 +3,7 @@ package group4.LastBuildWeek.services;
 import group4.LastBuildWeek.entities.Utente;
 import group4.LastBuildWeek.enums.Role;
 import group4.LastBuildWeek.exceptions.BadRequestException;
+import group4.LastBuildWeek.exceptions.NotFoundException;
 import group4.LastBuildWeek.exceptions.UnauthorizedException;
 import group4.LastBuildWeek.payloads.UtenteLoginDTO;
 import group4.LastBuildWeek.payloads.UtenteRegistrationDTO;
@@ -28,6 +29,7 @@ public class AuthService {
 
     @Autowired
     private PasswordEncoder bcrypt;
+
 
     public String authenticateUser(UtenteLoginDTO body) throws Exception {
         // 1. Verifichiamo che l'email dell'utente sia nel db
@@ -58,5 +60,15 @@ public class AuthService {
         dipendenteRepository.save(newUser);
         return body;
     }
+    public Utente findByIdAndUpdate(long id, Utente body) throws NotFoundException {
+        Utente found = dipendenteRepository.findById(id).get();
+        found.setCognome(body.getCognome());
+        found.setNome(body.getNome());
+        found.setUsername(body.getUsername());
+        found.setEmail(body.getEmail());
+        //found.setPassword(bcrypt.encode(body.getPassword()));
+        return dipendenteRepository.save(found);
+    }
+
 
 }
