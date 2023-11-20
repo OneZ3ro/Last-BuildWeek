@@ -2,7 +2,7 @@ package group4.LastBuildWeek.controllers;
 
 import group4.LastBuildWeek.entities.Indirizzi;
 import group4.LastBuildWeek.exceptions.BadRequestException;
-import group4.LastBuildWeek.payloads.NewIndirizziDTO;
+import group4.LastBuildWeek.payloads.entities.NewIndirizziDTO;
 import group4.LastBuildWeek.services.IndirizziService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

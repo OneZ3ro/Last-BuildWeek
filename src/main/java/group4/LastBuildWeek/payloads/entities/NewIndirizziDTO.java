@@ -1,4 +1,4 @@
-package group4.LastBuildWeek.payloads;
+package group4.LastBuildWeek.payloads.entities;
 
 import jakarta.validation.constraints.NotEmpty;
 

@@ -10,8 +10,8 @@ public class NotFoundException extends RuntimeException{
     public NotFoundException(double fattura) {
         super("La fattura con importo: " + fattura + " non è stato trovato. Riprovare con un importo diverso");
     }
-    public NotFoundException(String email) {
-        super("L'elemento: " + email + " non è stato trovato. Riprovare");
+    public NotFoundException(String elem) {
+        super("L'elemento: " + elem + " non è stato trovato. Riprovare");
     }
 
     public NotFoundException(LocalDate data) {

@@ -2,7 +2,7 @@ package group4.LastBuildWeek.services;
 
 import group4.LastBuildWeek.entities.Indirizzi;
 import group4.LastBuildWeek.exceptions.NotFoundException;
-import group4.LastBuildWeek.payloads.NewIndirizziDTO;
+import group4.LastBuildWeek.payloads.entities.NewIndirizziDTO;
 import group4.LastBuildWeek.repository.IndirizziRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
