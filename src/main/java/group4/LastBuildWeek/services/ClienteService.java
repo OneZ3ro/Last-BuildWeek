@@ -1,5 +1,7 @@
 package group4.LastBuildWeek.services;
 
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 import group4.LastBuildWeek.entities.Cliente;
 import group4.LastBuildWeek.exceptions.NotFoundException;
 import group4.LastBuildWeek.payloads.entities.ClienteDTO;
@@ -10,6 +12,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -19,6 +22,9 @@ import java.util.List;
 public class ClienteService {
     @Autowired
     private ClienteRepository clienteRepository;
+
+    @Autowired
+    private Cloudinary cloudinary;
 
     public Page<Cliente> getClienti(int page, int size, String orderBy) {
         Pageable pageable = PageRequest.of(page, size, Sort.by(orderBy));
@@ -85,5 +91,13 @@ public class ClienteService {
 
     public void eliminaCliente(long id) throws NotFoundException {
         clienteRepository.deleteById(id);
+    }
+
+    public String uploadFiles(long id, MultipartFile file) throws IOException {
+        String urlImg = (String) cloudinary.uploader().upload(file.getBytes(), ObjectUtils.emptyMap()).get("url");
+        Cliente cliente = this.findById(id);
+        cliente.setLogoAziendale(urlImg);
+        clienteRepository.save(cliente);
+        return urlImg;
     }
 }
