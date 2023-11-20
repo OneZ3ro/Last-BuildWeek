@@ -1,6 +1,7 @@
 package group4.LastBuildWeek.services;
 
 import group4.LastBuildWeek.entities.Cliente;
+import group4.LastBuildWeek.exceptions.NotFoundException;
 import group4.LastBuildWeek.payloads.entities.ClienteDTO;
 import group4.LastBuildWeek.repositories.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,23 +26,23 @@ public class ClienteService {
     }
 
     public Cliente findById(long id) throws NotFoundException {
-        return clienteRepository.findById(id).orElseThrow(() -> ); //---------------------------------- DA FINIRE ----------------------------------
+        return clienteRepository.findById(id).orElseThrow(() -> new NotFoundException(id)); //---------------------------------- DA FINIRE ----------------------------------
     }
 
-    public Cliente findByFatturatoAnnuale(double fattura) {
-        return clienteRepository.findByFatturatoAnnuale(fattura).orElseThrow(() -> ); //---------------------------------- DA FINIRE ----------------------------------
+    public Cliente findByFatturatoAnnuale(double fattura) throws NotFoundException {
+        return clienteRepository.findByFatturatoAnnuale(fattura).orElseThrow(() -> new NotFoundException(fattura)); //---------------------------------- DA FINIRE ----------------------------------
     }
 
-    public List<Cliente> findByDataDiInserimento(LocalDate dataInserimento) {
-        return clienteRepository.findByDataDiInserimento(dataInserimento).orElseThrow(() ->);  //---------------------------------- DA FINIRE ----------------------------------
+    public List<Cliente> findByDataDiInserimento(LocalDate dataInserimento) throws NotFoundException {
+        return clienteRepository.findByDataDiInserimento(dataInserimento).orElseThrow(() -> new NotFoundException(dataInserimento));  //---------------------------------- DA FINIRE ----------------------------------
     }
 
-    public List<Cliente> findByDataDiUltimoContatto(LocalDate dataUltimoContatto) {
-        return clienteRepository.findByDataDiUltimoContatto(dataUltimoContatto).orElseThrow(() ->);
+    public List<Cliente> findByDataDiUltimoContatto(LocalDate dataUltimoContatto) throws NotFoundException {
+        return clienteRepository.findByDataDiUltimoContatto(dataUltimoContatto).orElseThrow(() -> new NotFoundException(dataUltimoContatto));
     }
 
-    public Cliente findByProvinciaSedeLegale(String provinciaSedeLegale) {
-        return clienteRepository.findByProvinciaSedeLegale(provinciaSedeLegale).orElseThrow(() ->);
+    public Cliente findByProvinciaSedeLegale(String provinciaSedeLegale) throws NotFoundException {
+        return clienteRepository.findByProvinciaSedeLegale(provinciaSedeLegale).orElseThrow(() -> new NotFoundException(provinciaSedeLegale));
     }
 
     public Cliente saveCliente(ClienteDTO body) throws IOException {

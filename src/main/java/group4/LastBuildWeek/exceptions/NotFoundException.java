@@ -1,0 +1,20 @@
+package group4.LastBuildWeek.exceptions;
+
+import java.time.LocalDate;
+
+public class NotFoundException extends RuntimeException{
+    public NotFoundException(long id) {
+        super("L'elemento con id: " + id + " non è stato trovato. Riprovare con un id diverso");
+    }
+
+    public NotFoundException(double fattura) {
+        super("La fattura con importo: " + fattura + " non è stato trovato. Riprovare con un importo diverso");
+    }
+    public NotFoundException(String email) {
+        super("L'elemento: " + email + " non è stato trovato. Riprovare");
+    }
+
+    public NotFoundException(LocalDate data) {
+        super("L'elemento in data: " + data + " non corrisponde a nulla. Riprova con un'altra data");
+    }
+}
