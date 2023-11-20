@@ -60,8 +60,11 @@ import java.util.stream.Collectors;
                 String id = jwtTools.extractIdFromToken(token);
                 Utente currentUtente = usersService.findById(Long.parseLong(id));
 
-                Authentication authentication = new UsernamePasswordAuthenticationToken(currentUtente, null, currentUtente.getAuthorities());
-                SecurityContextHolder.getContext().setAuthentication(authentication);
+
+                Authentication authentication = new UsernamePasswordAuthenticationToken(currentUtente, null, currentUtente.getAuthorities() );
+              SecurityContextHolder.getContext().setAuthentication(authentication);
+                //Authentication authentication = new UsernamePasswordAuthenticationToken(currentUtente, null, currentUtente.getAuthorities());
+               // SecurityContextHolder.getContext().setAuthentication(authentication);
 
                 filterChain.doFilter(request, response);
             }

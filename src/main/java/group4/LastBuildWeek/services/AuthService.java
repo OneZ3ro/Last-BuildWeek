@@ -14,6 +14,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Collections;
 
 @Service
 public class AuthService {
@@ -56,7 +58,7 @@ public class AuthService {
         newUser.setNome(body.nome());
         newUser.setCognome(body.cognome());
 //        newUser.setRole(Collections.singletonList(Role.USER));
-        newUser.setRole(Role.USER);
+        newUser.setRole(Arrays.asList(Role.USER, Role.ADMIN));
         dipendenteRepository.save(newUser);
         return newUser;
     }

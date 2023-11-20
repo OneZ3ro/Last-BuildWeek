@@ -40,23 +40,20 @@ public class Utente implements UserDetails {
     private String avatar;
     @Column(name="role")
     @Enumerated(EnumType.STRING)
-    private Role role;
+    private List<Role> role;
 
-//    @Override
-//    public Collection<? extends GrantedAuthority> getAuthorities() {
-//        List<GrantedAuthority> authorities = new ArrayList<>();
-//        if (this.role != null) {
-//            authorities.addAll(this.role.stream()
-//                    .map(role -> new SimpleGrantedAuthority(role.name()))
-//                    .toList());
-//        }
-//
-//        return authorities;
-//    }
-    @Override
+   @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(this.role.name()));
-    }
+    List<GrantedAuthority> authorities = new ArrayList<>();
+       if (this.role != null) {
+           authorities.addAll(this.role.stream()
+                   .map(role -> new SimpleGrantedAuthority(role.name()))
+                    .toList());
+       }
+
+        return authorities;
+   }
+
 
     @Override
     public String getUsername() {

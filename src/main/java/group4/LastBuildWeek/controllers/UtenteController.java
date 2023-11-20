@@ -22,6 +22,7 @@ public class UtenteController {
     private UtenteService utenteService;
 
     @GetMapping("")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public Page<Utente> getUser(@RequestParam(defaultValue = "0") int page,
                                 @RequestParam(defaultValue = "10") int size,
                                 @RequestParam(defaultValue = "id") String orderBy){
