@@ -62,13 +62,5 @@ public class AuthService {
         dipendenteRepository.save(newUser);
         return newUser;
     }
-    public Utente findByIdAndUpdate(long id, Utente body) throws NotFoundException {
-        Utente found = dipendenteRepository.findById(id).get();
-        found.setCognome(body.getCognome());
-        found.setNome(body.getNome());
-        found.setUsername(body.getUsername());
-        found.setEmail(body.getEmail());
-        //found.setPassword(bcrypt.encode(body.getPassword()));
-        return dipendenteRepository.save(found);
-    }
+
 }

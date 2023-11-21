@@ -49,6 +49,16 @@ public class UtenteService {
         return utenteRepository.findById(id).orElseThrow(() -> new NotFoundException(id));
     }
 
+    public Utente findByIdAndUpdate(long id, Utente body) throws NotFoundException {
+        Utente found = utenteRepository.findById(id).get();
+        found.setCognome(body.getCognome());
+        found.setNome(body.getNome());
+        found.setUsername(body.getUsername());
+        found.setEmail(body.getEmail());
+        //found.setPassword(bcrypt.encode(body.getPassword()));
+        return utenteRepository.save(found);
+    }
+
     public void findByIdAndDelete(long id) throws NotFoundException {
         Utente found = this.findById(id);
         utenteRepository.delete(found);

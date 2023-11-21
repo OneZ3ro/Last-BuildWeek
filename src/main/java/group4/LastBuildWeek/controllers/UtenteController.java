@@ -34,7 +34,11 @@ public class UtenteController {
         return currentUser;
     };
 
-
+    @PutMapping("/me")
+    public UserDetails getProfile(@AuthenticationPrincipal Utente currentUser, @RequestBody Utente body){
+        System.out.println(currentUser);
+        return utenteService.findByIdAndUpdate(currentUser.getId(), body);
+    }
 
     @DeleteMapping("/me")
     @ResponseStatus(HttpStatus.NO_CONTENT) // <-- 204 NO CONTENT
@@ -47,6 +51,10 @@ public class UtenteController {
         return utenteService.findById(id);
     }
 
+    @PutMapping("/{id}")
+    public Utente findByIdAndUpdate(@PathVariable int id, @RequestBody Utente body) throws NotFoundException {
+        return utenteService.findByIdAndUpdate(id, body);
+    }
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasAuthority('ADMIN')")
