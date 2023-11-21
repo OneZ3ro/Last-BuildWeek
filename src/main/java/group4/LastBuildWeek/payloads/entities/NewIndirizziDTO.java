@@ -1,6 +1,7 @@
 package group4.LastBuildWeek.payloads.entities;
 
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 public record NewIndirizziDTO(@NotEmpty(message = "La via è un campo obbligatorio!")
                               String via,
@@ -11,4 +12,7 @@ public record NewIndirizziDTO(@NotEmpty(message = "La via è un campo obbligator
                               @NotEmpty(message = "Il cap è un campo obbligatorio!")
                               String cap,
                               @NotEmpty(message = "Il comune è un campo obbligatorio!")
-                              String comune){}
+                              String comune,
+                              @NotNull(message = "L'id del comune è un campo obbligatorio!")
+                              long comuneId) {
+}
