@@ -14,6 +14,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.Collections;
 
@@ -31,6 +33,8 @@ public class AuthService {
     @Autowired
     private PasswordEncoder bcrypt;
 
+    @Autowired
+    private EmailService emailService;
 
     public String authenticateUser(UtenteLoginDTO body) throws Exception {
         // 1. Verifichiamo che l'email dell'utente sia nel db
@@ -57,9 +61,16 @@ public class AuthService {
         newUser.setUsername(body.username());
         newUser.setNome(body.nome());
         newUser.setCognome(body.cognome());
-//        newUser.setRole(Collections.singletonList(Role.USER));
         newUser.setRole(Arrays.asList(Role.USER, Role.ADMIN));
         dipendenteRepository.save(newUser);
+
+
+        String to = body.email();
+        String subject = "Email di benvenuto";
+        String text = "Complimenti! Registrazione su pornhub avvenuta con successo!";
+
+        emailService.sendEmail(to, subject, text);
+
         return newUser;
     }
     public Utente findByIdAndUpdate(long id, Utente body) throws NotFoundException {

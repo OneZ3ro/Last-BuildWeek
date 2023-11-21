@@ -23,7 +23,7 @@ public class MyRunner implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        String fileProvincia = "src/main/java/group4/LastBuildWeek/mycsvfiles\\province-italiane.csv";
+      /*  String fileProvincia = "src/main/java/group4/LastBuildWeek/mycsvfiles\\province-italiane.csv";
         String fileComune = "src/main/java/group4/LastBuildWeek/mycsvfiles\\comuni-italiani.csv";
         BufferedReader readerProvincia = null;
         BufferedReader readerComune = null;
@@ -62,6 +62,6 @@ public class MyRunner implements CommandLineRunner {
             ex.printStackTrace();
         } finally {
             readerProvincia.close();
-        }
+        }*/
     }
 }
