@@ -80,11 +80,7 @@ public class FattureService {
     }
 
     public List<Fattura> findByDataFattura(LocalDate dataFattura){
-        return fattureRepository.findByDataFattura(dataFattura).orElseThrow(()-> new NotFoundException("Non ci sono fattura in data " + dataFattura + " !"));
+        return fattureRepository.findByDataFattura(dataFattura).orElseThrow(()-> new NotFoundException("Non ci sono fatture in data " + dataFattura + " !"));
     }
 
-    public List<Fattura> findByYear (LocalDate dataFattura){
-        SimpleDateFormat getYearFormat = new SimpleDateFormat("yyyy");
-        String filteredYear = getYearFormat.format(dataFattura);
-    }
 }

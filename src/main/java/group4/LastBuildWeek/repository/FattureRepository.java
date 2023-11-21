@@ -19,8 +19,5 @@ public interface FattureRepository extends JpaRepository <Fattura, Integer> {
     Optional<List<Fattura>> findByStatoFattura(StatoFattura statoFattura);
 
     Optional<List<Fattura>> findByDataFattura(LocalDate data);
-
-    Optional<List<Fattura>> findByYear(LocalDate data);
-
-    Optional<List<Fattura>> findByRangeImporti(double importo1, double importo2);
+    
 }
