@@ -1,8 +1,6 @@
 package group4.LastBuildWeek.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -20,4 +18,8 @@ public class Indirizzi {
     private String località;
     private String cap;
     private String comune;
+
+    @ManyToOne
+    @JoinColumn(name = "comune_id")
+    private Comune comuneId;
 }

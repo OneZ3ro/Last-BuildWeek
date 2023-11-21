@@ -20,6 +20,7 @@ public class MyRunner implements CommandLineRunner {
 
     @Autowired
     private ComuneRepository comuneRepository;
+
     @Override
     public void run(String... args) throws Exception {
         String fileProvincia = "src/main/java/group4/LastBuildWeek/mycsvfiles\\province-italiane.csv";
@@ -39,25 +40,23 @@ public class MyRunner implements CommandLineRunner {
             }
             while ((lineComune = readerComune.readLine()) != null) {
                 String[] row = lineComune.split(";");
-                    if (row[1].equals("#RIF!")) {
-                        if (counter < 10) {
-                            row[1] = "00" + counter;
-                        } else if (counter < 100) {
-                            row[1] = "0" + counter;
-                        } else {
-                            row[1] = "" + counter;
-                        }
-                        counter++;
+                if (row[1].equals("#RIF!")) {
+                    if (counter < 10) {
+                        row[1] = "00" + counter;
+                    } else if (counter < 100) {
+                        row[1] = "0" + counter;
+                    } else {
+                        row[1] = "" + counter;
                     }
-                    if (row.length == 4) {
-                        Comune comune = new Comune(row[0], row[1], row[2], row[3]);
-                        comuneRepository.save(comune);
-                    }
-//                    if (row.length == 4) {
-//                        System.out.println(provinciaRepository.findById(98L));
-//                        System.out.println(row[3]);
-//                    }
-//                System.out.println(row.length);
+                    counter++;
+                }
+                if (row.length == 4) {
+                    Provincia p = provinciaRepository.findByProvincia(row[3]).orElse(null);
+                    Comune comune = new Comune(row[0], row[1], row[2], row[3], p);
+
+                    comuneRepository.save(comune);
+                }
+
             }
         } catch (Exception ex) {
             ex.printStackTrace();

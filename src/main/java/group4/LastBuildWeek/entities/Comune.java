@@ -19,14 +19,15 @@ public class Comune {
     private String comuneIdCsv;
     private String nomeComune;
     private String nomeProvincia;
-//    @ManyToOne(fetch = FetchType.EAGER)
-//    @JoinColumn(name = "provincia_id", nullable = false)
-//    private Provincia provincia;
+    @ManyToOne
+    @JoinColumn(name = "provincia_id")
+    private Provincia provincia;
 
-    public Comune(String provinciaIdCsv, String comuneIdCsv, String nomeComune, String nomeProvincia) {
+    public Comune(String provinciaIdCsv, String comuneIdCsv, String nomeComune, String nomeProvincia, Provincia provincia) {
         this.provinciaIdCsv = provinciaIdCsv;
         this.comuneIdCsv = comuneIdCsv;
         this.nomeComune = nomeComune;
         this.nomeProvincia = nomeProvincia;
+        this.provincia = provincia;
     }
 }
