@@ -9,7 +9,6 @@ import jakarta.validation.constraints.Size;
 import java.time.LocalDate;
 
 public record ClienteDTO(
-        @NotEmpty(message = "Il tipo di cliente è obbligatorio")
         TipoCliente tipoCliente,
         @NotEmpty(message = "La ragione sociale è obbligatoria")
         @Size(min = 4, message = "La ragione sociale deve avere un minimo di 4 caratteri")
@@ -20,7 +19,7 @@ public record ClienteDTO(
         @NotEmpty(message = "La email è obbligatoria")
         @Pattern(regexp = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$", message = "L'email inserita non è valida")
         String email,
-        @NotEmpty(message = "La data di inserimento è obbligatoria")
+
         LocalDate dataInserimento,
         LocalDate dataUltimoContatto,
         @NotNull(message = "La fattura annuale è obbligatoria")
