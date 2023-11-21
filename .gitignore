@@ -32,4 +32,3 @@ build/
 ### VS Code ###
 .vscode/
 env.properties
-src/main/java/group4/LastBuildWeek/mycsvfiles/
