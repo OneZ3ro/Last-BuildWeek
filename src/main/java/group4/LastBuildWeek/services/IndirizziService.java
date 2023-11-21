@@ -38,7 +38,7 @@ public class IndirizziService {
     }
 
     public Page<Indirizzi> getAllIndirizzi(int page, int size, String orderBy) {
-        Pageable pageable = PageRequest.of(page, size, Sort.Direction.valueOf(orderBy));
+        Pageable pageable = PageRequest.of(page, size, Sort.by(orderBy));
 
         return indirizziRepository.findAll(pageable);
     }

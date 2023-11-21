@@ -36,7 +36,7 @@ public class MyRunner implements CommandLineRunner {
             while ((lineProvincia = readerProvincia.readLine()) != null) {
                 String[] row = lineProvincia.split(";");
                 Provincia provincia = new Provincia(row[0], row[1], row[2]);
-                provinciaRepository.save(provincia);
+//                provinciaRepository.save(provincia);
             }
             while ((lineComune = readerComune.readLine()) != null) {
                 String[] row = lineComune.split(";");
@@ -54,7 +54,7 @@ public class MyRunner implements CommandLineRunner {
                     Provincia p = provinciaRepository.findByProvincia(row[3]).orElse(null);
                     Comune comune = new Comune(row[0], row[1], row[2], row[3], p);
 
-                    comuneRepository.save(comune);
+//                    comuneRepository.save(comune);
                 }
 
             }

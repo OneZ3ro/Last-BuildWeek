@@ -44,14 +44,6 @@ public class AuthController {
             }
         }
     }
-    @PutMapping("/me")
-    public UserDetails getProfile(@AuthenticationPrincipal Utente currentUser, @RequestBody Utente body){
-        return authService.findByIdAndUpdate(currentUser.getId(), body);
-    }
-    @PutMapping("/{id}")
-    @PreAuthorize("hasAuthority('ADMIN')")
-    public Utente findByIdAndUpdate(@PathVariable int id, @RequestBody Utente body) throws NotFoundException {
-        return authService.findByIdAndUpdate(id, body);
-    }
+
 
 }

@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 
-public class FattureControllers {
+@RestController
+@RequestMapping("/fatture")
+public class FattureController {
     @Autowired
     private FattureService fattureService;
 
@@ -25,7 +27,7 @@ public class FattureControllers {
         return fattureService.mostraFatture(page, size, orderBy);
     }
 
-    @GetMapping(value = "/{id}")
+    @GetMapping("/{id}")
     public Fattura findById(@PathVariable long id){
         return fattureService.findById(id);
     }
@@ -45,7 +47,7 @@ public class FattureControllers {
     }
 
     @PutMapping("/{id}")
-    public Fattura findByIdAndUpdate(@PathVariable int id, @RequestBody Fattura body){
+    public Fattura findByIdAndUpdate(@PathVariable long id, @RequestBody Fattura body){
         return fattureService.findByIdAndUpdate(id, body);
     }
 

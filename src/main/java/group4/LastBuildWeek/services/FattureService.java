@@ -24,8 +24,11 @@ import java.util.Optional;
 @Service
 public class FattureService {
 
-@Autowired
+    @Autowired
     private FattureRepository fattureRepository;
+
+    @Autowired
+    private ClienteService clienteService;
 
     public Fattura salva(NuovaFatturaDTO body) throws IOException {
 
@@ -38,9 +41,9 @@ public class FattureService {
         fatturaNuova.setDataFattura(LocalDate.now());
         fatturaNuova.setImportoFattura(body.importoFattura());
         fatturaNuova.setNumeroFattura(body.numeroFattura());
-        fatturaNuova.setCliente(body.cliente());
-        Fattura fatturaSalvata = fattureRepository.save(fatturaNuova);
-        return fatturaSalvata;
+        Cliente cliente = clienteService.findById(body.clienteId());
+        fatturaNuova.setCliente(cliente);
+        return fattureRepository.save(fatturaNuova);
     }
 
     public Page<Fattura> mostraFatture(int page, int size, String orderBy) {
@@ -58,7 +61,7 @@ public class FattureService {
         fattureRepository.delete(found);
     }
 
-    public Fattura findByIdAndUpdate(int id, Fattura body) throws NotFoundException{
+    public Fattura findByIdAndUpdate(long id, Fattura body) throws NotFoundException{
         Fattura found = this.findById(id);
         found.setNumeroFattura(body.getNumeroFattura());
         found.setCliente(body.getCliente());
