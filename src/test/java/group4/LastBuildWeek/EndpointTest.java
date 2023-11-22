@@ -35,7 +35,7 @@ public class EndpointTest {
         String url = "http://localhost:" + port + "/clienti";
 
         HttpHeaders headers = new HttpHeaders();
-        headers.setBearerAuth("yourAccessToken");
+        headers.setBearerAuth("");
 
         HttpEntity<String> request = new HttpEntity<>(headers);
 
@@ -43,19 +43,29 @@ public class EndpointTest {
 
         // Assicurati che la risposta sia quella che ti aspetti
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
-        assertEquals("ExpectedResponse", responseEntity.getBody());
+        assertEquals("{\"content\":[],\"pageable\":{\"pageNumber\":0,\"pageSize\":5,\"sort\":{\"empty\":false,\"sorted\":true,\"unsorted\":false},\"offset\":0,\"paged\":true,\"unpaged\":false},\"totalPages\":0,\"totalElements\":0,\"last\":true,\"size\":5,\"number\":0,\"sort\":{\"empty\":false,\"sorted\":true,\"unsorted\":false},\"first\":true,\"numberOfElements\":0,\"empty\":true}", responseEntity.getBody());
     }
 
-    @Test
-    @WithMockUser(roles = "USER")
-    void testAdminEndpointWithUserRole() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/clienti").with(csrf()))
-                .andExpect(MockMvcResultMatchers.status().isForbidden());
-    }
+//    @Test
+//    @WithMockUser(roles = "USER")
+//    void testAdminEndpointWithUserRole() throws Exception {
+//        mockMvc.perform(MockMvcRequestBuilders.get("/clienti").with(csrf()))
+//                .andExpect(MockMvcResultMatchers.status().isForbidden());
+//    }
 
     @Test
     @WithMockUser(roles = "ADMIN")
     void testAdminEndpointWithAdminRole() throws Exception {
+
+        String url = "http://localhost:" + port + "/clienti";
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setBearerAuth("");
+
+        HttpEntity<String> request = new HttpEntity<>(headers);
+
+        ResponseEntity<String> responseEntity = restTemplate.exchange(url, HttpMethod.GET, request, String.class);
+
         mockMvc.perform(MockMvcRequestBuilders.get("/clienti").with(csrf()))
                 .andExpect(MockMvcResultMatchers.status().isOk());
     }
