@@ -43,6 +43,7 @@ public class FattureService {
         fatturaNuova.setNumeroFattura(body.numeroFattura());
         Cliente cliente = clienteService.findById(body.clienteId());
         fatturaNuova.setCliente(cliente);
+        fatturaNuova.setStatoFattura(StatoFattura.EMESSA);
         return fattureRepository.save(fatturaNuova);
     }
 
@@ -66,23 +67,25 @@ public class FattureService {
         found.setNumeroFattura(body.getNumeroFattura());
         found.setCliente(body.getCliente());
         found.setImportoFattura(body.getImportoFattura());
+        found.setStatoFattura(body.getStatoFattura());
         return fattureRepository.save(found);
     }
 
-    public Fattura findByNumeroFattura(String numeroFattura){
+    public Fattura findByNumeroFattura(String numeroFattura) throws NotFoundException{
         return fattureRepository.findByNumeroFattura(numeroFattura)
                 .orElseThrow(() -> new NotFoundException("La fattura " + numeroFattura + " non è stata trovata!"));
     }
 
-    public List<Fattura> findByCliente(Cliente cliente){
+    public List<Fattura> findByClienteId (long clienteid) throws NotFoundException{
+        Cliente cliente = clienteService.findById(clienteid);
         return fattureRepository.findByCliente(cliente).orElseThrow(()-> new NotFoundException("Cliente " + cliente + " non trovato!"));
     }
 
-    public Optional<List<Fattura>> findByStatoFattura(StatoFattura statoFattura){
-        return fattureRepository.findByStatoFattura(statoFattura);
+    public List<Fattura> findByStatoFattura(StatoFattura statoFattura) throws NotFoundException{
+        return fattureRepository.findByStatoFattura(statoFattura).orElseThrow(() -> new NotFoundException("" + statoFattura));
     }
 
-    public List<Fattura> findByDataFattura(LocalDate dataFattura){
+    public List<Fattura> findByDataFattura(LocalDate dataFattura) throws NotFoundException{
         return fattureRepository.findByDataFattura(dataFattura).orElseThrow(()-> new NotFoundException("Non ci sono fatture in data " + dataFattura + " !"));
     }
 

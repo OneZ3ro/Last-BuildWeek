@@ -1,6 +1,8 @@
 package group4.LastBuildWeek.controllers;
 
+import group4.LastBuildWeek.entities.Comune;
 import group4.LastBuildWeek.entities.Indirizzi;
+import group4.LastBuildWeek.entities.Provincia;
 import group4.LastBuildWeek.exceptions.BadRequestException;
 import group4.LastBuildWeek.payloads.entities.NewIndirizziDTO;
 import group4.LastBuildWeek.services.IndirizziService;
@@ -12,6 +14,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.List;
 
 @RestController
 @RequestMapping("/indirizzi")
@@ -24,6 +27,20 @@ public class IndirizziController {
                                    @RequestParam(defaultValue = "10") int size,
                                    @RequestParam(defaultValue = "id") String orderBy) {
         return indirizziService.getAllIndirizzi(page, size, orderBy);
+    }
+    @GetMapping("/provincia")
+    public List<Indirizzi> findByProvincia(@RequestParam String provincia) {
+        return indirizziService.findByProvincia(provincia);
+    }
+
+    @GetMapping("/provincie")
+    public List<Comune> findByNomeProvincia(@RequestParam String provincia) {
+        return indirizziService.findByNomeProvincia(provincia);
+    }
+
+    @GetMapping("/allProvincie")
+    public List<Provincia> findAllProvincie(){
+        return indirizziService.findAllProvincie();
     }
 
     @PostMapping("")
