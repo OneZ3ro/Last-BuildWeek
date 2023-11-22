@@ -27,9 +27,8 @@ public class IndirizziService {
         Indirizzi newIndirizzo = new Indirizzi();
         newIndirizzo.setVia(indirizzoDTO.via());
         newIndirizzo.setCivico(indirizzoDTO.civico());
-        newIndirizzo.setLocalità(indirizzoDTO.località());
         newIndirizzo.setCap(indirizzoDTO.cap());
-        newIndirizzo.setComune(indirizzoDTO.comune());
+        newIndirizzo.setProvincia(indirizzoDTO.provincia());
         Comune c = comuneRepository.findById(indirizzoDTO.comuneId()).orElseThrow(() -> new NotFoundException(indirizzoDTO.comuneId()));
         newIndirizzo.setComuneId(c);
 
@@ -53,7 +52,7 @@ public class IndirizziService {
         found.setVia(body.via());
         found.setCivico(body.civico());
         found.setCap(body.cap());
-        found.setComune(body.provincia());
+        found.setProvincia(body.provincia());
         Comune c = comuneRepository.findById(body.comuneId()).orElseThrow(() -> new NotFoundException(body.comuneId()));
         found.setComuneId(c);
         return indirizziRepository.save(found);
