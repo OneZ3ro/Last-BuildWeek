@@ -55,12 +55,25 @@ public class FattureController {
     public List<Fattura> findByDataFattura(@RequestParam LocalDate dataFattura) {
         return fattureService.findByDataFattura(dataFattura);
     }
+    @GetMapping("/annoFattura")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public List<Fattura> findByAnnoFattura(@RequestParam int anno){
+        return fattureService.findByDataFatturaContaining(anno);
+    }
+
 
     @GetMapping("/statoFattura")
     @PreAuthorize("hasAuthority('ADMIN')")
     public List<Fattura> findByStatoFattura(@RequestParam StatoFattura statoFattura) {
         return fattureService.findByStatoFattura(statoFattura);
     }
+
+    @GetMapping("/rangefatture")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public List<Fattura> findByRangeImportoFattura(@RequestParam double importo1, @RequestParam double importo2){
+        return fattureService.findByRangeImportoFattura(importo1, importo2);
+    }
+
 
     @PostMapping("")
     @ResponseStatus(HttpStatus.CREATED) // <-- 201
