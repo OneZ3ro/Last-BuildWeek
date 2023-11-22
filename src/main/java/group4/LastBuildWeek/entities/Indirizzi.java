@@ -15,9 +15,8 @@ public class Indirizzi {
     private long id;
     private String via;
     private String civico;
-    private String località;
     private String cap;
-    private String comune;
+    private String provincia;
 
     @ManyToOne
     @JoinColumn(name = "comune_id")
