@@ -68,10 +68,16 @@ public class FattureController {
         return fattureService.findByStatoFattura(statoFattura);
     }
 
+//    @GetMapping("/rangefatture")
+//    @PreAuthorize("hasAuthority('ADMIN')")
+//    public List<Fattura> findByRangeImportoFattura(@RequestParam double importo1, @RequestParam double importo2){
+//        return fattureService.findByRangeImportoFattura(importo1, importo2);
+//    }
+
     @GetMapping("/rangefatture")
     @PreAuthorize("hasAuthority('ADMIN')")
     public List<Fattura> findByRangeImportoFattura(@RequestParam double importo1, @RequestParam double importo2){
-        return fattureService.findByRangeImportoFattura(importo1, importo2);
+        return fattureService.findAllByImportoBetween(importo1, importo2);
     }
 
 

@@ -15,6 +15,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -92,11 +93,15 @@ public class FattureService {
     }
 
     public List<Fattura> findByDataFatturaContaining(int year) throws NotFoundException {
-        return fattureRepository.findByDataFatturaContaining(year).orElseThrow(() -> new NotFoundException("Non ci sono fatture emesse nell'anno " + year + "!!" );
+        return fattureRepository.findByDataFatturaContaining(year).orElseThrow(() -> new NotFoundException("Non ci sono fatture emesse nell'anno " + year + "!!" ));
     }
 
-    public List<Fattura> findByRangeImportoFattura(double importo1, double importo2) throws NotFoundException{
-        return fattureRepository.findAllByImportoFatturaGreaterThanEqualAndLessThanEqual(importo1, importo2)
-                .orElseThrow(() -> new NotFoundException("Non sono state fatture con importi compresi tra " + importo1 + " e " + importo2));
+//    public List<Fattura> findByRangeImportoFattura(double importo1, double importo2) throws NotFoundException{
+//        return fattureRepository.findAllByImportoFatturaGreaterThanEqualAndLessThanEqual(importo1, importo2)
+//                .orElseThrow(() -> new NotFoundException("Non sono state fatture con importi compresi tra " + importo1 + " e " + importo2));
+//    }
+
+    public List<Fattura> findAllByImportoBetween(double importo1, double importo2) throws NotFoundException{
+        return fattureRepository.findAllByImportoFatturaBetween(importo1, importo2).orElseThrow(() -> new NotFoundException("Non sono state fatture con importi compresi tra " + importo1 + " e " + importo2));
     }
 }
