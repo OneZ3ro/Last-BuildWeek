@@ -3,7 +3,6 @@ package group4.LastBuildWeek.services;
 import group4.LastBuildWeek.entities.Utente;
 import group4.LastBuildWeek.enums.Role;
 import group4.LastBuildWeek.exceptions.BadRequestException;
-import group4.LastBuildWeek.exceptions.NotFoundException;
 import group4.LastBuildWeek.exceptions.UnauthorizedException;
 import group4.LastBuildWeek.payloads.entities.UtenteLoginDTO;
 import group4.LastBuildWeek.payloads.entities.UtenteRegistrationDTO;
@@ -14,10 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
-import java.util.Collections;
 
 @Service
 public class AuthService {
@@ -40,7 +36,7 @@ public class AuthService {
         // 1. Verifichiamo che l'email dell'utente sia nel db
         Utente user = usersService.findByEmail(body.email());
         // 2. In caso affermativo, verifichiamo se la password corrisponde a quella trovata nel db
-        if(bcrypt.matches(body.password(), user.getPassword()))  {
+        if (bcrypt.matches(body.password(), user.getPassword())) {
             // 3. Se le credenziali sono OK --> Genero un JWT e lo restituisco
             return jwtTools.createToken(user);
         } else {
@@ -52,7 +48,7 @@ public class AuthService {
     public Utente registerUser(UtenteRegistrationDTO body) throws IOException {
 
         // verifico se l'email è già utilizzata
-        dipendenteRepository.findByEmail(body.email()).ifPresent( user -> {
+        dipendenteRepository.findByEmail(body.email()).ifPresent(user -> {
             throw new BadRequestException("L'email " + user.getEmail() + " è già utilizzata!");
         });
         Utente newUser = new Utente();
@@ -69,7 +65,7 @@ public class AuthService {
         String subject = "Email di benvenuto";
         String text = "Complimenti! Registrazione su pornhub avvenuta con successo!";
 
-        emailService.sendEmail(to, subject, text);
+        // emailService.sendEmail(to, subject, text);
 
         return newUser;
     }
