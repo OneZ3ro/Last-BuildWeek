@@ -52,8 +52,9 @@ public class IndirizziService {
         Indirizzi found = this.findById(id);
         found.setVia(body.via());
         found.setCivico(body.civico());
+        found.setLocalità(body.località());
         found.setCap(body.cap());
-        found.setComune(body.provincia());
+        found.setComune(body.comune());
         Comune c = comuneRepository.findById(body.comuneId()).orElseThrow(() -> new NotFoundException(body.comuneId()));
         found.setComuneId(c);
         return indirizziRepository.save(found);
