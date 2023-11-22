@@ -42,6 +42,8 @@ public record ClienteDTO(
         @NotEmpty(message = "Il telefono di contatto è obbligatorio")
         @Size(min = 10, max = 13, message = "Il telefono di contatto deve avere tra 10 e 13 caratteri")
         String telefonoContatto,
-        String logoAziendale
+        String logoAziendale,
+        long sedeLegaleId,
+        long sedeOperativaId
 ) {
 }
