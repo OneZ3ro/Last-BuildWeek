@@ -41,7 +41,7 @@ public class FattureService {
         });
 
         Fattura fatturaNuova = new Fattura();
-        fatturaNuova.setDataFattura(LocalDate.now());
+        fatturaNuova.setDataFattura(body.dataFattura());
         fatturaNuova.setImportoFattura(body.importoFattura());
         fatturaNuova.setNumeroFattura(body.numeroFattura());
         Cliente cliente = clienteService.findById(body.clienteId());
@@ -93,7 +93,7 @@ public class FattureService {
     }
 
     public List<Fattura> findByDataFatturaContaining(int year) throws NotFoundException {
-        return fattureRepository.findByDataFatturaContaining(year).orElseThrow(() -> new NotFoundException("Non ci sono fatture emesse nell'anno " + year + "!!" ));
+        return fattureRepository.findFattureByYear(year).orElseThrow(() -> new NotFoundException("Non ci sono fatture emesse nell'anno " + year + "!!" ));
     }
 
 //    public List<Fattura> findByRangeImportoFattura(double importo1, double importo2) throws NotFoundException{

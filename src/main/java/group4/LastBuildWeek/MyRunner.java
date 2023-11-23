@@ -44,7 +44,7 @@ public class MyRunner implements CommandLineRunner {
 //                    provinciaRepository.save(provincia);
 //                }
                 Provincia provincia = new Provincia(row[0], row[1], row[2]);
-//                provinciaRepository.save(provincia);
+ //               provinciaRepository.save(provincia);
             }
             List<String> app = new ArrayList<>();
             while ((lineComune = readerComune.readLine()) != null) {
