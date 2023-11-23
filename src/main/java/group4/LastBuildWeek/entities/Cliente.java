@@ -1,5 +1,6 @@
 package group4.LastBuildWeek.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import group4.LastBuildWeek.enums.TipoCliente;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -12,6 +13,7 @@ import java.util.List;
 @Table(name = "clienti")
 @Getter
 @Setter
+@JsonIgnoreProperties({"listaFatture"})
 public class Cliente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

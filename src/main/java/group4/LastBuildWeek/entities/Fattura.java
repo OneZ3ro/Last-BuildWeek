@@ -14,7 +14,7 @@ import java.util.Date;
 @Table(name = "fatture")
 @Getter
 @ToString
-@JsonIgnoreProperties({"cliente"})
+//@JsonIgnoreProperties({"cliente"})
 public class Fattura {
     @Id
     @GeneratedValue
