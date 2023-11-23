@@ -47,24 +47,27 @@ public class ClienteService {
         return clienteRepository.findByFatturaAnnuale(fattura).orElseThrow(() -> new NotFoundException(fattura));
     }
 
-    public List<Cliente> findByDataDiInserimento(LocalDate dataInserimento) throws NotFoundException {
-        return clienteRepository.findByDataInserimento(dataInserimento).orElseThrow(() -> new NotFoundException(dataInserimento));
+    public Page<Cliente> findByDataDiInserimento(LocalDate dataInserimento, int page, int size, String orderBy) throws NotFoundException {
+        Pageable pageable = PageRequest.of(page, size, Sort.by(orderBy));
+        return clienteRepository.findByDataInserimento(dataInserimento, pageable).orElseThrow(() -> new NotFoundException(dataInserimento));
     }
 
-    public List<Cliente> findByDataDiUltimoContatto(LocalDate dataUltimoContatto) throws NotFoundException {
-        return clienteRepository.findByDataUltimoContatto(dataUltimoContatto).orElseThrow(() -> new NotFoundException(dataUltimoContatto));
+    public Page<Cliente> findByDataDiUltimoContatto(LocalDate dataUltimoContatto, int page, int size, String orderBy) throws NotFoundException {
+        Pageable pageable = PageRequest.of(page, size, Sort.by(orderBy));
+        return clienteRepository.findByDataUltimoContatto(dataUltimoContatto, pageable).orElseThrow(() -> new NotFoundException(dataUltimoContatto));
     }
 
     public Cliente findByProvinciaSedeLegale(Indirizzi provinciaSedeLegale) throws NotFoundException {
         return clienteRepository.findBySedeLegale(provinciaSedeLegale).orElseThrow(() -> new NotFoundException(String.valueOf(provinciaSedeLegale)));
     }
 
-    public List<Cliente> findByNomeContattoContaining(String nomeContatto) throws NotFoundException {
+    public Page<Cliente> findByNomeContattoContaining(String nomeContatto,  int page, int size, String orderBy) throws NotFoundException {
+        Pageable pageable = PageRequest.of(page, size, Sort.by(orderBy));
 //        @Query("SELECT c FROM Cliente c WHERE c.nomeContatto LIKE '?1%'")
 //        List<Cliente> findByNomeContaining(String partialNome);
 //        TypedQuery<Cliente> query = em.createQuery("SELECT c FROM Cliente c WHERE c.nomeContatto LIKE ':nome%'", Cliente.class);
 //        query.setParameter("mezzoId", idConvertito);
-        return clienteRepository.findByNomeContattoContaining(nomeContatto).orElseThrow(() -> new NotFoundException(nomeContatto));
+        return clienteRepository.findByNomeContattoContaining(nomeContatto, pageable).orElseThrow(() -> new NotFoundException(nomeContatto));
     }
 
 

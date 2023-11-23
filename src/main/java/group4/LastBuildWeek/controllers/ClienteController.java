@@ -39,14 +39,20 @@ public class ClienteController {
 
     @GetMapping("/dataInserimento")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public List<Cliente> findByDataDiInserimento(@RequestParam LocalDate dataInserimento) {
-        return clienteService.findByDataDiInserimento(dataInserimento);
+    public Page<Cliente> findByDataDiInserimento(@RequestParam LocalDate dataInserimento,
+                                                 @RequestParam(defaultValue = "0") int page,
+                                                 @RequestParam(defaultValue = "5") int size,
+                                                 @RequestParam(defaultValue = "clienteId") String orderBy) {
+        return clienteService.findByDataDiInserimento(dataInserimento, page, size, orderBy);
     }
 
     @GetMapping("/dataUltimoContatto")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public List<Cliente> findByDataDiUltimoContatto(@RequestParam LocalDate dataUltimoContatto) {
-        return clienteService.findByDataDiUltimoContatto(dataUltimoContatto);
+    public Page<Cliente> findByDataDiUltimoContatto(@RequestParam LocalDate dataUltimoContatto,
+                                                    @RequestParam(defaultValue = "0") int page,
+                                                    @RequestParam(defaultValue = "5") int size,
+                                                    @RequestParam(defaultValue = "clienteId") String orderBy) {
+        return clienteService.findByDataDiUltimoContatto(dataUltimoContatto, page, size, orderBy);
     }
 
     @GetMapping("/provinciaSedeLegale")
@@ -57,8 +63,11 @@ public class ClienteController {
 
     @GetMapping("/")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public List<Cliente> findByNomeContattoContaining(@RequestParam String nomeContatto) {
-        return clienteService.findByNomeContattoContaining(nomeContatto);
+    public Page<Cliente> findByNomeContattoContaining(@RequestParam String nomeContatto,
+                                                      @RequestParam(defaultValue = "0") int page,
+                                                      @RequestParam(defaultValue = "5") int size,
+                                                      @RequestParam(defaultValue = "clienteId") String orderBy) {
+        return clienteService.findByNomeContattoContaining(nomeContatto, page, size, orderBy);
     }
 
 
