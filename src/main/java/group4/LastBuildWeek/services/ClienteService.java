@@ -70,6 +70,8 @@ public class ClienteService {
 
     public Cliente saveCliente(ClienteDTO body) throws IOException {
         Cliente cliente = new Cliente();
+        System.out.println(body.sedeLegaleId());
+        System.out.println(body.sedeOperativaId());
         cliente.setTipoCliente(body.tipoCliente());
         cliente.setRagioneSociale(body.ragioneSociale() + body.tipoCliente());
         cliente.setPartitaIva(body.partitaIva());
@@ -84,10 +86,12 @@ public class ClienteService {
         cliente.setCognomeContatto(body.cognomeContatto());
         cliente.setTelefonoContatto(body.telefonoContatto());
         cliente.setLogoAziendale(body.logoAziendale());
-        Indirizzi indirizzoLegale = indirizziService.findById(body.sedeLegaleId());
-        cliente.setSedeLegale(indirizzoLegale);
-        Indirizzi indirizzoOperativo = indirizziService.findById(body.sedeOperativaId());
-        cliente.setSedeOperativa(indirizzoOperativo);
+        if (body.sedeLegaleId() != 0) {
+            Indirizzi indirizzoLegale = indirizziService.findById(body.sedeLegaleId());
+            cliente.setSedeLegale(indirizzoLegale);
+            Indirizzi indirizzoOperativo = indirizziService.findById(body.sedeOperativaId());
+            cliente.setSedeOperativa(indirizzoOperativo);
+        }
         return clienteRepository.save(cliente);
     }
 

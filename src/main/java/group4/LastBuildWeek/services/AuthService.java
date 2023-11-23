@@ -69,7 +69,7 @@ public class AuthService {
         String subject = "Email di benvenuto";
         String text = "Complimenti! Registrazione su pornhub avvenuta con successo!";
 
-        emailService.sendEmail(to, subject, text);
+//        emailService.sendEmail(to, subject, text);
 
         return newUser;
     }
