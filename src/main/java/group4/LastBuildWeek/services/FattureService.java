@@ -79,21 +79,25 @@ public class FattureService {
                 .orElseThrow(() -> new NotFoundException("La fattura " + numeroFattura + " non è stata trovata!"));
     }
 
-    public List<Fattura> findByClienteId (long clienteid) throws NotFoundException{
+    public Page<Fattura> findByClienteId (long clienteid, int page, int size, String orderBy ) throws NotFoundException{
+        Pageable pageable = PageRequest.of(page, size, Sort.by(orderBy));
         Cliente cliente = clienteService.findById(clienteid);
-        return fattureRepository.findByCliente(cliente).orElseThrow(()-> new NotFoundException("Cliente " + cliente + " non trovato!"));
+        return fattureRepository.findByCliente(cliente, pageable).orElseThrow(()-> new NotFoundException("Cliente " + cliente + " non trovato!"));
     }
 
-    public List<Fattura> findByStatoFattura(StatoFattura statoFattura) throws NotFoundException{
-        return fattureRepository.findByStatoFattura(statoFattura).orElseThrow(() -> new NotFoundException("" + statoFattura));
+    public Page<Fattura> findByStatoFattura(StatoFattura statoFattura, int page, int size, String orderBy) throws NotFoundException{
+        Pageable pageable = PageRequest.of(page, size, Sort.by(orderBy));
+        return fattureRepository.findByStatoFattura(statoFattura, pageable).orElseThrow(() -> new NotFoundException("" + statoFattura));
     }
 
-    public List<Fattura> findByDataFattura(LocalDate dataFattura) throws NotFoundException{
-        return fattureRepository.findByDataFattura(dataFattura).orElseThrow(()-> new NotFoundException("Non ci sono fatture in data " + dataFattura + " !"));
+    public Page<Fattura> findByDataFattura(LocalDate dataFattura, int page, int size, String orderBy) throws NotFoundException{
+        Pageable pageable = PageRequest.of(page, size, Sort.by(orderBy));
+        return fattureRepository.findByDataFattura(dataFattura, pageable).orElseThrow(()-> new NotFoundException("Non ci sono fatture in data " + dataFattura + " !"));
     }
 
-    public List<Fattura> findByDataFatturaContaining(int year) throws NotFoundException {
-        return fattureRepository.findFattureByYear(year).orElseThrow(() -> new NotFoundException("Non ci sono fatture emesse nell'anno " + year + "!!" ));
+    public Page<Fattura> findByDataFatturaContaining(int year, int page, int size, String orderBy) throws NotFoundException {
+        Pageable pageable = PageRequest.of(page, size, Sort.by(orderBy));
+        return fattureRepository.findFattureByYear(year, pageable).orElseThrow(() -> new NotFoundException("Non ci sono fatture emesse nell'anno " + year + "!!" ));
     }
 
 //    public List<Fattura> findByRangeImportoFattura(double importo1, double importo2) throws NotFoundException{
@@ -101,7 +105,8 @@ public class FattureService {
 //                .orElseThrow(() -> new NotFoundException("Non sono state fatture con importi compresi tra " + importo1 + " e " + importo2));
 //    }
 
-    public List<Fattura> findAllByImportoBetween(double importo1, double importo2) throws NotFoundException{
-        return fattureRepository.findAllByImportoFatturaBetween(importo1, importo2).orElseThrow(() -> new NotFoundException("Non sono state fatture con importi compresi tra " + importo1 + " e " + importo2));
+    public Page<Fattura> findAllByImportoBetween(double importo1, double importo2, int page, int size, String orderBy) throws NotFoundException{
+        Pageable pageable = PageRequest.of(page, size, Sort.by(orderBy));
+        return fattureRepository.findAllByImportoFatturaBetween(importo1, importo2, pageable).orElseThrow(() -> new NotFoundException("Non sono state fatture con importi compresi tra " + importo1 + " e " + importo2));
     }
 }

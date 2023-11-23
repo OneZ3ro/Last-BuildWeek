@@ -46,26 +46,38 @@ public class FattureController {
 
     @GetMapping("/clienteid")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public List<Fattura> findByClienteId(@RequestParam long clienteid) {
-        return fattureService.findByClienteId(clienteid);
+    public Page<Fattura> findByClienteId(@RequestParam long clienteid,
+                                         @RequestParam(defaultValue = "0") int page,
+                                         @RequestParam(defaultValue = "10") int size,
+                                         @RequestParam(defaultValue = "id") String orderBy) {
+        return fattureService.findByClienteId(clienteid, page, size, orderBy);
     }
 
     @GetMapping("/dataFattura")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public List<Fattura> findByDataFattura(@RequestParam LocalDate dataFattura) {
-        return fattureService.findByDataFattura(dataFattura);
+    public Page<Fattura> findByDataFattura(@RequestParam LocalDate dataFattura,
+                                           @RequestParam(defaultValue = "0") int page,
+                                           @RequestParam(defaultValue = "10") int size,
+                                           @RequestParam(defaultValue = "id") String orderBy) {
+        return fattureService.findByDataFattura(dataFattura, page, size, orderBy);
     }
     @GetMapping("/annoFattura")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public List<Fattura> findByAnnoFattura(@RequestParam int anno){
-        return fattureService.findByDataFatturaContaining(anno);
+    public Page<Fattura> findByAnnoFattura(@RequestParam int anno,
+                                           @RequestParam(defaultValue = "0") int page,
+                                           @RequestParam(defaultValue = "10") int size,
+                                           @RequestParam(defaultValue = "id") String orderBy){
+        return fattureService.findByDataFatturaContaining(anno, page, size, orderBy);
     }
 
 
     @GetMapping("/statoFattura")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public List<Fattura> findByStatoFattura(@RequestParam StatoFattura statoFattura) {
-        return fattureService.findByStatoFattura(statoFattura);
+    public Page<Fattura> findByStatoFattura(@RequestParam StatoFattura statoFattura,
+                                            @RequestParam(defaultValue = "0") int page,
+                                            @RequestParam(defaultValue = "10") int size,
+                                            @RequestParam(defaultValue = "id") String orderBy) {
+        return fattureService.findByStatoFattura(statoFattura, page, size, orderBy);
     }
 
 //    @GetMapping("/rangefatture")
@@ -76,8 +88,12 @@ public class FattureController {
 
     @GetMapping("/rangefatture")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public List<Fattura> findByRangeImportoFattura(@RequestParam double importo1, @RequestParam double importo2){
-        return fattureService.findAllByImportoBetween(importo1, importo2);
+    public Page<Fattura> findByRangeImportoFattura(@RequestParam double importo1,
+                                                   @RequestParam double importo2,
+                                                   @RequestParam(defaultValue = "0") int page,
+                                                   @RequestParam(defaultValue = "10") int size,
+                                                   @RequestParam(defaultValue = "id") String orderBy){
+        return fattureService.findAllByImportoBetween(importo1, importo2, page, size, orderBy);
     }
 
 
