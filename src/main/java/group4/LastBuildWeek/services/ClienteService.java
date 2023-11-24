@@ -74,8 +74,6 @@ public class ClienteService {
 
     public Cliente saveCliente(ClienteDTO body) throws IOException {
         Cliente cliente = new Cliente();
-//        System.out.println(body.sedeLegaleId());
-//        System.out.println(body.sedeOperativaId());
         cliente.setTipoCliente(TipoCliente.SRL);
         cliente.setRagioneSociale(body.ragioneSociale());
         cliente.setPartitaIva(body.partitaIva());
@@ -93,8 +91,7 @@ public class ClienteService {
         if (body.sedeLegaleId() != 0) {
             Indirizzi indirizzoLegale = indirizziService.findById(body.sedeLegaleId());
             cliente.setSedeLegale(indirizzoLegale);
-            Indirizzi indirizzoOperativo = indirizziService.findById(body.sedeOperativaId());
-            cliente.setSedeOperativa(indirizzoOperativo);
+            cliente.setSedeOperativa(indirizzoLegale);
         }
         return clienteRepository.save(cliente);
     }

@@ -43,6 +43,7 @@ public record ClienteDTO(
         @Size(min = 10, max = 13, message = "Il telefono di contatto deve avere tra 10 e 13 caratteri")
         String telefonoContatto,
         String logoAziendale,
+        @NotNull(message = "devi passare la sede legale id")
         long sedeLegaleId,
         long sedeOperativaId
 ) {
