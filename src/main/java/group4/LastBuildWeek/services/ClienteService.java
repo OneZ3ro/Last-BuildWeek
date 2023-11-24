@@ -73,8 +73,8 @@ public class ClienteService {
 
     public Cliente saveCliente(ClienteDTO body) throws IOException {
         Cliente cliente = new Cliente();
-        System.out.println(body.sedeLegaleId());
-        System.out.println(body.sedeOperativaId());
+//        System.out.println(body.sedeLegaleId());
+//        System.out.println(body.sedeOperativaId());
         cliente.setTipoCliente(body.tipoCliente());
         cliente.setRagioneSociale(body.ragioneSociale() + body.tipoCliente());
         cliente.setPartitaIva(body.partitaIva());
