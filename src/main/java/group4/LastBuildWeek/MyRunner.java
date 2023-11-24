@@ -140,7 +140,7 @@ public class MyRunner implements CommandLineRunner {
                         }
                     }
                     Comune comune = new Comune(row[0], row[1], row[2], p.getProvincia(), p);
-                    comuneRepository.save(comune);
+//                    comuneRepository.save(comune);
                 }
             }
             Set<String> app2 = new HashSet<>(app);
