@@ -200,10 +200,10 @@ public class MyRunner implements CommandLineRunner {
 //            }
 
             //  TIPOCLIENTE.SPA
-//            for(int i =1 ;i<50;i++){
-//                ClienteDTO clienteDTO = new ClienteDTO(TipoCliente.SPA,"ragioneSociale"+TipoCliente.PA+i,"partitaIva"+TipoCliente.PA+i,"email"+i+"@gmail.com",
+//            for(int i =1 ;i<20;i++){
+//                ClienteDTO clienteDTO = new ClienteDTO(TipoCliente.SAS,"ragioneSociale"+TipoCliente.PA+i,"partitaIva"+TipoCliente.PA+i,"email"+i+"@gmail.com",
 //                        LocalDate.now().minusDays(i+i), LocalDate.now().minusDays(i),100+i,"pec"+i+"@gmail.com","888777333"+i,"email"+i+"@gmail.com",
-//                        "nome"+i,"cognome"+i,"888777333"+i,"",i+50,i+50);
+//                        "nome"+i,"cognome"+i,"888777333"+i,"",i+101,i+101);
 //
 //                clienteService.saveCliente(clienteDTO);
 //            }

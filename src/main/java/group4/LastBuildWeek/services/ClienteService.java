@@ -4,6 +4,7 @@ import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 import group4.LastBuildWeek.entities.Cliente;
 import group4.LastBuildWeek.entities.Indirizzi;
+import group4.LastBuildWeek.enums.TipoCliente;
 import group4.LastBuildWeek.exceptions.NotFoundException;
 import group4.LastBuildWeek.payloads.entities.ClienteDTO;
 import group4.LastBuildWeek.repository.ClienteRepository;
@@ -75,8 +76,8 @@ public class ClienteService {
         Cliente cliente = new Cliente();
 //        System.out.println(body.sedeLegaleId());
 //        System.out.println(body.sedeOperativaId());
-        cliente.setTipoCliente(body.tipoCliente());
-        cliente.setRagioneSociale(body.ragioneSociale() + body.tipoCliente());
+        cliente.setTipoCliente(TipoCliente.SRL);
+        cliente.setRagioneSociale(body.ragioneSociale());
         cliente.setPartitaIva(body.partitaIva());
         cliente.setEmail(body.email());
         cliente.setDataInserimento(LocalDate.now());
